@@ -1,0 +1,25 @@
+<?php require_once('Connections/cnx.php'); ?>
+<?php require_once('Connections/infoestudiantes.php'); ?>
+<?php
+    //buscar el grupo
+    $Id_Grupo=$_GET['idgrupo'];
+    $query_RstJustpaste= "SELECT * FROM justpaste WHERE idgrupo=$Id_Grupo ORDER BY id DESC";
+    $RstJustpaste=$cnx->prepare($query_RstJustpaste);
+    $RstJustpaste->execute();
+    $rowRstJustpaste=$RstJustpaste->fetchAll(PDO::FETCH_ASSOC);
+    $totalRows_RstJustpaste= $RstJustpaste->rowCount();
+    //fin
+    function vergrupo($idgr)
+  {
+    require('Connections/cnx.php'); 
+  //Estudios
+    $sql1 = "SELECT * FROM grupos WHERE idgrupo=$idgr";
+    $RstResp1 = $cnx->prepare($sql1);
+    $RstResp1->execute();
+    $Row_RstResp1 = $RstResp1->fetch(PDO::FETCH_ASSOC);
+    $totalRows1 = $RstResp1->rowCount();
+    $Nombre = '';
+    $Nombre = $Row_RstResp1['nombregrupo'];
+    return $Nombre;  
+  }
+?>
